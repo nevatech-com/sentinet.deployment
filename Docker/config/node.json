@@ -1,0 +1,160 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      // Uncomment to hide diagnostic messages from runtime and proxy
+      //"Microsoft": "Warning",
+      //"Yarp": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    },
+    "EventLog": {
+      "LogLevel": {
+        "Default": "Warning"
+      },
+      "LogName": "Application",
+      "MachineName": null,
+      "SourceName": "Sentinet (Node)"
+    },
+    "File": {
+      "LogLevel": {
+        "Default": "Debug"
+      },
+      "Path": null,
+      "Append": true,
+      "MinLevel": "Debug",
+      "FileSizeLimitBytes": 1048576,
+      "MaxRollingFiles": 5
+    }
+  },
+
+  "AllowedHosts": "*",
+
+  "Kestrel": {
+    "Endpoints": {
+      "Https": {
+        "Url": "https://*:443",
+        "ClientCertificateMode": "AllowCertificate",
+        "Certificate": {
+          "Path": "/config/host.docker.internal.pfx",
+          "Password": "password"
+        },
+        "Protocols": "Http1AndHttp2AndHttp3"
+      },
+      "Http": {
+        "Url": "http://*:80",
+        "Protocols": "Http1AndHttp2AndHttp3"
+      }
+    },
+    "Limits": {
+      "KeepAliveTimeout": "00:02:10",
+      "MaxConcurrentConnections": null,
+      "MaxConcurrentUpgradedConnections": null,
+      "MaxRequestBodySize": 30000000,
+      "MaxRequestBufferSize": 1048576,
+      "MaxRequestHeaderCount": 100,
+      "MaxRequestHeadersTotalSize": 32768,
+      "MaxRequestLineSize": 8192,
+      "MaxResponseBufferSize": 65536,
+      "RequestHeadersTimeout": "00:00:20",
+      "Http2": {
+        "HeaderTableSize": 4096,
+        "InitialConnectionWindowSize": 1048576,
+        "InitialStreamWindowSize": 786432,
+        "KeepAlivePingDelay": "00:00:30",
+        "KeepAlivePingTimeout": "00:00:20",
+        "MaxFrameSize": 16384,
+        "MaxRequestHeaderFieldSize": 16384,
+        "MaxStreamsPerConnection": 100
+      },
+      "Http3": {
+        "MaxRequestHeaderFieldSize": 16384
+      }
+    },
+    "AddServerHeader": false,
+    "AllowAlternateSchemes": false,
+    "AllowResponseHeaderCompression": true,
+    "AllowSynchronousIO": false,
+    "DisableStringReuse": false
+  },
+
+  "Nevatech.Sentinet": {
+    "LicenseKey": "<YOUR LICENSE KEY GOES HERE>",
+    "Networking": {
+      "Proxy": {
+        "UseProxy": false,
+        "Address": null,
+        "BypassProxyOnLocal": false,
+        "BypassList": [],
+        "Credentials": {
+          "UserName": null,
+          "Password": null,
+          "Domain": null
+        }
+      },
+      "Ldap": {
+        "EnableLdapClaimResolution": false,
+        "ClaimsCacheAbsoluteExpiration": "01:00:00",
+        "ClaimsCacheSlidingExpiration": "00:10:00",
+        "ClaimsCacheSize": 104857600,
+        "Domain": null,
+        "IgnoreNestedGroups": false,
+        "MachineAccountName": null,
+        "MachineAccountPassword": null,
+        "AuthType": "Negotiate",
+        "UseSsl": false,
+        "Port": 389
+      }
+    },
+    "Extensibility": {
+      "Configurators": []
+    }
+  },
+
+  "Nevatech.Sentinet.Runtime": {
+    "Node": {
+      "Key": "CD863F77-8F92-40F1-93AA-706B0A8EDA56",
+      "Instance": null,
+      "IsAutonomous": false,
+      "EncryptCache": true,
+      "CacheFolderName": null,
+      "AbortUpdateOnAnyFailure": true,
+      "MaxReceiveRetries": 1
+    },
+    "Monitoring": {
+      "MaxRecordedMessageSize": 262144,
+      "MaxTransactionPropertySize": 262144,
+      "DeliveryPeriod": "00:00:05",
+      "AccumulationPeriod": "00:00:05",
+      "RetryInterval": "00:00:20",
+      "MaxBatchAge": "00:20:00",
+      "MaxUndeliveredTransactions": 0,
+      "MaxUndeliveredTransactionProperties": 0,
+      "MaxUndeliveredRecords": 10000,
+      "MaxUndeliveredActivities": 0,
+      "MinAvailableMemory": 262144000,
+      "MaxBatchSize": 1048576
+    },
+    "ProtectionCertificate": {
+      "Path": "/config/host.docker.internal.pfx",
+      "Password": "password"
+    },
+    "OAuthMetadata": {
+      "HttpTimeout": "00:00:15",
+      "RefreshInterval": "1.00:00:00",
+      "MinimumRetryInterval": "00:01:00",
+      "InactivityInterval": "12:00:00"
+    },
+    "RepositoryServiceClient": {
+      "Address": "https://host.docker.internal:7001/",
+      "Timeout": "00:00:30",
+      "NodeSecret": "dz.GzZKP8UCTqnBrCo7aVgAQJFEQ8I0XeXFt7eWM_0UNWLZFm_fcpGqshnuLLdl-"
+    },
+    "Health": {
+      "TransportFailureRate": {
+        "DetectionWindowSize": "00:01:00",
+        "MinimalTotalCountThreshold": 10,
+        "DefaultFailureRateLimit":  0.3
+      }
+    }
+  }
+}

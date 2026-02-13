@@ -1,0 +1,264 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "IdentityServer4": "Debug",
+      "Nevatech.Sentinet": "Debug"
+    },
+    "EventLog": {
+      "LogLevel": {
+        "Default": "Warning"
+      },
+      "LogName": "Application",
+      "MachineName": null,
+      "SourceName": "Sentinet (Repository)"
+    },
+    "File": {
+      "LogLevel": {
+        "Default": "Debug"
+      },
+      "Path": null,
+      "Append": true,
+      "MinLevel": "Debug",
+      "FileSizeLimitBytes": 1048576,
+      "MaxRollingFiles": 5
+    }
+  },
+
+  "AllowedHosts": "*",
+
+  "Kestrel": {
+    "Endpoints": {
+      "Https": {
+        "Url": "https://*:443",
+        "Certificate": {
+          "Path": "/config/host.docker.internal.pfx",
+          "Password": "password"
+        },
+        "Protocols": "Http1AndHttp2AndHttp3"
+      },
+      "Http": {
+        "Url": "http://*:80",
+        "Protocols": "Http1AndHttp2AndHttp3"
+      }
+    },
+    "Limits": {
+      "KeepAliveTimeout": "00:02:10",
+      "MaxConcurrentConnections": null,
+      "MaxConcurrentUpgradedConnections": null,
+      "MaxRequestBodySize": 30000000,
+      "MaxRequestBufferSize": 1048576,
+      "MaxRequestHeaderCount": 100,
+      "MaxRequestHeadersTotalSize": 32768,
+      "MaxRequestLineSize": 8192,
+      "MaxResponseBufferSize": 65536,
+      "RequestHeadersTimeout": "00:00:20",
+      "Http2": {
+        "HeaderTableSize": 4096,
+        "InitialConnectionWindowSize": 1048576,
+        "InitialStreamWindowSize": 786432,
+        "KeepAlivePingDelay": "00:00:30",
+        "KeepAlivePingTimeout": "00:00:20",
+        "MaxFrameSize": 16384,
+        "MaxRequestHeaderFieldSize": 16384,
+        "MaxStreamsPerConnection": 100
+      },
+      "Http3": {
+        "MaxRequestHeaderFieldSize": 16384
+      }
+    },
+    "AddServerHeader": false,
+    "AllowAlternateSchemes": false,
+    "AllowResponseHeaderCompression": true,
+    "AllowSynchronousIO": false,
+    "DisableStringReuse": false
+  },
+
+  "Nevatech.Sentinet": {
+    "LicenseKey": "<YOUR LICENSE KEY GOES HERE>",
+    "Networking": {
+      "Proxy": {
+        "UseProxy": false,
+        "Address": null,
+        "BypassProxyOnLocal": false,
+        "BypassList": [],
+        "Credentials": {
+          "UserName": null,
+          "Password": null,
+          "Domain": null
+        }
+      },
+      "Ldap": {
+        "EnableLdapClaimResolution": false,
+        "ClaimsCacheAbsoluteExpiration": "01:00:00",
+        "ClaimsCacheSlidingExpiration": "00:10:00",
+        "ClaimsCacheSize": 104857600,
+        "Domain": null,
+        "IgnoreNestedGroups": false,
+        "MachineAccountName": null,
+        "MachineAccountPassword": null,
+        "AuthType": "Negotiate",
+        "UseSsl": false,
+        "Port": 389
+      }
+    },
+    "Extensibility": {
+      "Configurators": []
+    }
+  },
+
+  "Nevatech.Sentinet.Repository": {
+    "BaseUri": "https://host.docker.internal:7001/",
+    "Database": {
+      "RepositoryConnectionString": "Data Source=host.docker.internal,6123;Initial Catalog=Sentinet;User ID=sentinet;Password=mJ41C-36gQ[P;TrustServerCertificate=True",
+      "MonitoringConnectionString": "",
+      "CommandTimeout": 60
+    },
+    "Cors": {
+      "AllowedOrigins": "",
+      "AllowedMethods": "*",
+      "AllowedHeaders": "*",
+      "ExposedHeaders": "Location,Preference-Applied,Retry-After",
+      "AllowCredentials": true,
+      "PreflightMaxAge": 600
+    }
+  },
+
+  "Nevatech.Sentinet.IdentityServer": {
+    // "IssuerUri": null,
+    "LowerCaseIssuerUri": true,
+    "AccessTokenJwtType": "at+jwt",
+    "EmitStaticAudienceClaim": false,
+    "EmitScopesAsSpaceDelimitedStringInJwt": false,
+    "StrictJarValidation": false,
+    "Endpoints": {
+      "EnableAuthorizeEndpoint": true,
+      "EnableJwtRequestUri": false,
+      "EnableTokenEndpoint": true,
+      "EnableUserInfoEndpoint": true,
+      "EnableDiscoveryEndpoint": true,
+      "EnableEndSessionEndpoint": true,
+      "EnableCheckSessionEndpoint": true,
+      "EnableTokenRevocationEndpoint": true,
+      "EnableIntrospectionEndpoint": true,
+      "EnableDeviceAuthorizationEndpoint": false
+    },
+    "Discovery": {
+      "ShowEndpoints": true,
+      "ShowKeySet": true,
+      "ShowIdentityScopes": true,
+      "ShowApiScopes": true,
+      "ShowClaims": true,
+      "ShowResponseTypes": true,
+      "ShowResponseModes": true,
+      "ShowGrantTypes": true,
+      "ShowExtensionGrantTypes": true,
+      "ShowTokenEndpointAuthenticationMethods": true,
+      "ExpandRelativePathsInCustomEntries": true,
+      "ResponseCacheInterval": null,
+      "CustomEntries": {}
+    },
+    "Authentication": {
+      // "CookieAuthenticationScheme": null,
+      "CookieLifetime": "00:20:00",
+      "CookieSlidingExpiration": true,
+      // -1-unspecified, 0-none, 1-lax, 2-strict
+      "CookieSameSiteMode": 1,
+      "CheckSessionCookieSameSiteMode": 1,
+      "CheckSessionCookieName": "idsrv.session",
+      // "CheckSessionCookieDomain": null,
+      "RequireAuthenticatedUserForSignOutMessage": false,
+      "RequireCspFrameSrcForSignout": true
+    },
+    "Events": {
+      "RaiseSuccessEvents": false,
+      "RaiseFailureEvents": false,
+      "RaiseInformationEvents": false,
+      "RaiseErrorEvents": false
+    },
+    "InputLengthRestrictions": {
+      "ClientId": 100,
+      "ClientSecret": 100,
+      "Scope": 300,
+      "RedirectUri": 400,
+      "Nonce": 300,
+      "UiLocale": 100,
+      "LoginHint": 100,
+      "AcrValues": 300,
+      "GrantType": 100,
+      "UserName": 100,
+      "Password": 100,
+      "CspReport": 2000,
+      "IdentityProvider": 100,
+      "ExternalError": 100,
+      "AuthorizationCode": 100,
+      "DeviceCode": 100,
+      "RefreshToken": 100,
+      "TokenHandle": 100,
+      "Jwt": 51200,
+      "CodeChallengeMinLength": 43,
+      "CodeChallengeMaxLength": 128,
+      "CodeVerifierMinLength": 43,
+      "CodeVerifierMaxLength": 128
+    },
+    "Caching": {
+      "ClientStoreExpiration": "00:15:00",
+      "ResourceStoreExpiration": "00:15:00",
+      "CorsExpiration": "00:15:00"
+    },
+    "Cors": {
+      "CorsPolicyName": "IdentityServer4",
+      "PreflightCacheDuration": null,
+      "CorsPaths": [
+        "/.well-known/openid-configuration",
+        "/.well-known/openid-configuration/jwks",
+        "/connect/token",
+        "/connect/userinfo",
+        "/connect/revocation"
+      ]
+    },
+    "Csp": {
+      "Level": 1,
+      "AddDeprecatedHeader": false
+    },
+    "Validation": {
+      "InvalidRedirectUriPrefixes": [
+        "javascript:",
+        "file:",
+        "data:",
+        "mailto:",
+        "ftp:",
+        "blob:",
+        "about:",
+        "ssh:",
+        "tel:",
+        "view-source:",
+        "ws:",
+        "wss:"
+      ]
+    },
+    "DeviceFlow": {
+      "DefaultUserCodeType": "Numeric",
+      "Interval": 5
+    },
+    "Logging": {
+      "TokenRequestSensitiveValuesFilter": [
+        "client_secret",
+        "password",
+        "client_assertion",
+        "refresh_token",
+        "device_code"
+      ],
+      "AuthorizeRequestSensitiveValuesFilter": [
+        "id_token_hint"
+      ]
+    },
+    "MutualTls": {
+      "Enabled": false,
+      "ClientCertificateAuthenticationScheme": "Certificate",
+      // "DomainName": null,
+      "AlwaysEmitConfirmationClaim": false
+    }
+  }
+}

@@ -1,0 +1,53 @@
+services:
+  database:
+    image: nevatech/sentinet.database.windows:latest
+    environment:
+      ACCEPT_EULA: Y
+      sa_password: mJ41C-36gQ[P
+    ports:
+      - "6123:1433"
+
+  repository:
+    image: nevatech/sentinet.windows:latest
+    command: Nevatech.Sentinet.Repository.dll
+    environment:
+      SENTINET_CONFIG: C:\config\repository.json
+    ports:
+      - "7000:80"
+      - "7001:443"
+    configs:
+      - source: config
+        target: C:\config
+    depends_on:
+      database:
+        condition: service_healthy
+
+  agent:
+    image: nevatech/sentinet.windows:latest
+    command: Nevatech.Sentinet.Agent.dll
+    environment:
+      SENTINET_CONFIG: C:\config\agent.json
+    configs:
+      - source: config
+        target: C:\config
+    depends_on:
+      database:
+        condition: service_healthy
+
+  node:
+    image: nevatech/sentinet.windows:latest
+    command: Nevatech.Sentinet.Node.dll
+    environment:
+      SENTINET_CONFIG: C:\config\node.json
+    ports:
+      - "5000:80"
+      - "5001:443"
+    configs:
+      - source: config
+        target: C:\config
+    depends_on:
+      - repository
+
+configs:
+  config:
+    file: config

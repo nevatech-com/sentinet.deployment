@@ -1,0 +1,53 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    },
+    "EventLog": {
+      "LogLevel": {
+        "Default": "Warning"
+      },
+      "LogName": "Application",
+      "MachineName": null,
+      "SourceName": "Sentinet (Agent)"
+    },
+    "File": {
+      "LogLevel": {
+        "Default": "Debug"
+      },
+      "Path": null,
+      "Append": true,
+      "MinLevel": "Debug",
+      "FileSizeLimitBytes": 1048576,
+      "MaxRollingFiles": 5
+    }
+  },
+
+  "Nevatech.Sentinet": {
+    "LicenseKey": "<YOUR LICENSE KEY GOES HERE>",
+    "Networking": {
+      "Proxy": {
+        "UseProxy": false,
+        "Address": null,
+        "BypassProxyOnLocal": false,
+        "BypassList": [],
+        "Credentials": {
+          "UserName": null,
+          "Password": null,
+          "Domain": null
+        }
+      }
+    },
+    "Extensibility": {
+      "Configurators": []
+    }
+  },
+
+  "Nevatech.Sentinet.Repository": {
+    "Database": {
+      "RepositoryConnectionString": "Data Source=host.docker.internal,6123;Initial Catalog=Sentinet;User ID=sentinet;Password=mJ41C-36gQ[P;TrustServerCertificate=True",
+      "MonitoringConnectionString": "",
+      "CommandTimeout": 60
+    }
+  }
+}
