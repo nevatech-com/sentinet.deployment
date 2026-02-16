@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  namespace: sentinet
+  labels:
+    app: database
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: database
+      namespace: sentinet
+      labels:
+        app: database
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: database
+        image: nevatech/sentinet.database.linux:latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: "mJ41C-36gQ[P"
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 250m
+          limits:
+            memory: 2Gi
+            cpu: 1
+      imagePullSecrets:
+      - name: regcred
+  selector:
+    matchLabels:
+      app: database

@@ -1,0 +1,1 @@
+kubectl apply -f 0-common.yaml -f 1-services.yaml -f 2-database.yaml -f 3-agent.yaml -f 4-repository.yaml -f 5-node.yaml

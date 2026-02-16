@@ -1,0 +1,1 @@
+kubectl delete -f 5-node.yaml -f 4-repository.yaml -f 3-agent.yaml -f 2-database.yaml -f 1-services.yaml -f 0-common.yaml

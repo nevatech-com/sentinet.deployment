@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-config
+  namespace: sentinet
+data:
+  agent.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Debug"
+        }
+      },
+
+      "Nevatech.Sentinet": {
+        "LicenseKey": "<YOUR LICENSE KEY GOES HERE>",
+        "Networking": {
+          "Proxy": {
+            "UseProxy": false,
+            "Address": null,
+            "BypassProxyOnLocal": false,
+            "BypassList": [],
+            "Credentials": {
+              "UserName": null,
+              "Password": null,
+              "Domain": null
+            }
+          }
+        },
+        "Extensibility": {
+          "Configurators": []
+        }
+      },
+
+      "Nevatech.Sentinet.Repository": {
+        "Database": {
+          "RepositoryConnectionString": "Data Source=database-svc.sentinet.svc.cluster.local,1433;Initial Catalog=Sentinet;User ID=sentinet;Password=mJ41C-36gQ[P;TrustServerCertificate=True",
+          "MonitoringConnectionString": "",
+          "CommandTimeout": 60
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent
+  namespace: sentinet
+  labels:
+    app: agent
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: agent
+      namespace: sentinet
+      labels:
+        app: agent
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: sam
+        image: nevatech/sentinet.linux:latest
+        args: ["Nevatech.Sentinet.Agent.dll"]
+        env:
+        - name: SENTINET_CONFIG
+          value: "/config/agent.json"
+        - name: SENTINET_NORESTART
+          value: "true"
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 500m
+        volumeMounts:
+        - mountPath: /config
+          name: config-volume
+      volumes:
+      - name: config-volume
+        configMap:
+          name: agent-config
+  selector:
+    matchLabels:
+      app: agent

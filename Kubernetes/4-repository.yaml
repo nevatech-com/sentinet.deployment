@@ -1,0 +1,301 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: repository-config
+  namespace: sentinet
+data:
+  repository.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning",
+          "IdentityServer4": "Information"
+        }
+      },
+
+      "AllowedHosts": "*",
+
+      "Kestrel": {
+        "Endpoints": {
+          "Https": {
+            "Url": "https://*:443",
+            "Certificate": {
+              "Path": "/config/host.docker.internal.pfx",
+              "Password": "password"
+            },
+            "Protocols": "Http1AndHttp2AndHttp3"
+          },
+          "Http": {
+            "Url": "http://*:80",
+            "Protocols": "Http1AndHttp2AndHttp3"
+          }
+        },
+        "Limits": {
+          "KeepAliveTimeout": "00:02:10",
+          "MaxConcurrentConnections": null,
+          "MaxConcurrentUpgradedConnections": null,
+          "MaxRequestBodySize": 30000000,
+          "MaxRequestBufferSize": 1048576,
+          "MaxRequestHeaderCount": 100,
+          "MaxRequestHeadersTotalSize": 32768,
+          "MaxRequestLineSize": 8192,
+          "MaxResponseBufferSize": 65536,
+          "RequestHeadersTimeout": "00:00:20",
+          "Http2": {
+            "HeaderTableSize": 4096,
+            "InitialConnectionWindowSize": 1048576,
+            "InitialStreamWindowSize": 786432,
+            "KeepAlivePingDelay": "00:00:30",
+            "KeepAlivePingTimeout": "00:00:20",
+            "MaxFrameSize": 16384,
+            "MaxRequestHeaderFieldSize": 16384,
+            "MaxStreamsPerConnection": 100
+          },
+          "Http3": {
+            "MaxRequestHeaderFieldSize": 16384
+          }
+        },
+        "AddServerHeader": false,
+        "AllowAlternateSchemes": false,
+        "AllowResponseHeaderCompression": true,
+        "AllowSynchronousIO": false,
+        "DisableStringReuse": false
+      },
+
+      "Nevatech.Sentinet": {
+        "LicenseKey": "<YOUR LICENSE KEY GOES HERE>",
+        "Networking": {
+          "Proxy": {
+            "UseProxy": false,
+            "Address": null,
+            "BypassProxyOnLocal": false,
+            "BypassList": [],
+            "Credentials": {
+              "UserName": null,
+              "Password": null,
+              "Domain": null
+            }
+          }
+        },
+        "Extensibility": {
+          "Configurators": []
+        }
+      },
+
+      "Nevatech.Sentinet.Repository": {
+        "BaseUri": "https://host.docker.internal:7001/",
+        "Database": {
+          "RepositoryConnectionString": "Data Source=database-svc.sentinet.svc.cluster.local,1433;Initial Catalog=Sentinet;User ID=sentinet;Password=mJ41C-36gQ[P;TrustServerCertificate=True",
+          "MonitoringConnectionString": "",
+          "CommandTimeout": 60
+        },
+        "Cors": {
+          "AllowedOrigins": "",
+          "AllowedMethods": "*",
+          "AllowedHeaders": "*",
+          "ExposedHeaders": "Location,Preference-Applied,Retry-After",
+          "AllowCredentials": true,
+          "PreflightMaxAge": 600
+        }
+      },
+
+      "Nevatech.Sentinet.IdentityServer": {
+        // "IssuerUri": null,
+        "LowerCaseIssuerUri": true,
+        "AccessTokenJwtType": "at+jwt",
+        "EmitStaticAudienceClaim": false,
+        "EmitScopesAsSpaceDelimitedStringInJwt": false,
+        "StrictJarValidation": false,
+        "Endpoints": {
+          "EnableAuthorizeEndpoint": true,
+          "EnableJwtRequestUri": false,
+          "EnableTokenEndpoint": true,
+          "EnableUserInfoEndpoint": true,
+          "EnableDiscoveryEndpoint": true,
+          "EnableEndSessionEndpoint": true,
+          "EnableCheckSessionEndpoint": true,
+          "EnableTokenRevocationEndpoint": true,
+          "EnableIntrospectionEndpoint": true,
+          "EnableDeviceAuthorizationEndpoint": false
+        },
+        "Discovery": {
+          "ShowEndpoints": true,
+          "ShowKeySet": true,
+          "ShowIdentityScopes": true,
+          "ShowApiScopes": true,
+          "ShowClaims": true,
+          "ShowResponseTypes": true,
+          "ShowResponseModes": true,
+          "ShowGrantTypes": true,
+          "ShowExtensionGrantTypes": true,
+          "ShowTokenEndpointAuthenticationMethods": true,
+          "ExpandRelativePathsInCustomEntries": true,
+          "ResponseCacheInterval": null,
+          "CustomEntries": {}
+        },
+        "Authentication": {
+          // "CookieAuthenticationScheme": null,
+          // "CookieLifetime": "10:00:00",
+          // "CookieSlidingExpiration": false,
+          // -1-unspecified, 0-none, 1-lax, 2-strict
+          "CookieSameSiteMode": 1,
+          "CheckSessionCookieSameSiteMode": 1,
+          "CheckSessionCookieName": "idsrv.session",
+          // "CheckSessionCookieDomain": null,
+          "RequireAuthenticatedUserForSignOutMessage": false,
+          "RequireCspFrameSrcForSignout": true
+        },
+        "Events": {
+          "RaiseSuccessEvents": false,
+          "RaiseFailureEvents": false,
+          "RaiseInformationEvents": false,
+          "RaiseErrorEvents": false
+        },
+        "InputLengthRestrictions": {
+          "ClientId": 100,
+          "ClientSecret": 100,
+          "Scope": 300,
+          "RedirectUri": 400,
+          "Nonce": 300,
+          "UiLocale": 100,
+          "LoginHint": 100,
+          "AcrValues": 300,
+          "GrantType": 100,
+          "UserName": 100,
+          "Password": 100,
+          "CspReport": 2000,
+          "IdentityProvider": 100,
+          "ExternalError": 100,
+          "AuthorizationCode": 100,
+          "DeviceCode": 100,
+          "RefreshToken": 100,
+          "TokenHandle": 100,
+          "Jwt": 51200,
+          "CodeChallengeMinLength": 43,
+          "CodeChallengeMaxLength": 128,
+          "CodeVerifierMinLength": 43,
+          "CodeVerifierMaxLength": 128
+        },
+        "Caching": {
+          "ClientStoreExpiration": "00:15:00",
+          "ResourceStoreExpiration": "00:15:00",
+          "CorsExpiration": "00:15:00"
+        },
+        "Cors": {
+          "CorsPolicyName": "IdentityServer4",
+          "PreflightCacheDuration": null,
+          "CorsPaths": [
+            "/.well-known/openid-configuration",
+            "/.well-known/openid-configuration/jwks",
+            "/connect/token",
+            "/connect/userinfo",
+            "/connect/revocation"
+          ]
+        },
+        "Csp": {
+          "Level": 1,
+          "AddDeprecatedHeader": false
+        },
+        "Validation": {
+          "InvalidRedirectUriPrefixes": [
+            "javascript:",
+            "file:",
+            "data:",
+            "mailto:",
+            "ftp:",
+            "blob:",
+            "about:",
+            "ssh:",
+            "tel:",
+            "view-source:",
+            "ws:",
+            "wss:"
+          ]
+        },
+        "DeviceFlow": {
+          "DefaultUserCodeType": "Numeric",
+          "Interval": 5
+        },
+        "Logging": {
+          "TokenRequestSensitiveValuesFilter": [
+            "client_secret",
+            "password",
+            "client_assertion",
+            "refresh_token",
+            "device_code"
+          ],
+          "AuthorizeRequestSensitiveValuesFilter": [
+            "id_token_hint"
+          ]
+        },
+        "MutualTls": {
+          "Enabled": false,
+          "ClientCertificateAuthenticationScheme": "Certificate",
+          // "DomainName": null,
+          "AlwaysEmitConfirmationClaim": false
+        }
+      }
+    }
+binaryData:
+  host.docker.internal.pfx: MIIJ6gIBAzCCCaYGCSqGSIb3DQEHAaCCCZcEggmTMIIJjzCCBZAGCSqGSIb3DQEHAaCCBYEEggV9MIIFeTCCBXUGCyqGSIb3DQEMCgECoIIE7jCCBOowHAYKKoZIhvcNAQwBAzAOBAiTwGXI4xSpHgICB9AEggTI1PziG2gfjAKqZS0o47qJhF10vAGPbWXZM5mH+VukGGKEtuhOXfRubSmdNAWTAdxuxiNsVbklBSi/IIwrz8dPelF3PsULJhFNv5Y1BIn/mYY8Yvxk05PTZ18cGvuJhaWuI+59RP75DfS5L2ou7CsL1xsj3ZZjb/sjR1D4pk1mKxAcM50gyFIz2MekD0Z6jVx1aTcpg1gJ6ZNpfuqOGAj/+WocfAtVDTfTmpXKlW5Q9AMTwGysGo3Hh87DbP1Or0SX0ppXzktH7iwZvZ9ppnql1Wfv8+97c35W0wHI8EByXhzonh/FO73OBX/oDuhCN3Qh5Fzw6mx/5jiCvitZqum5suuhw8CvA6pBtGm0lUpfMAxI2RKtBb1CtgggGfohWOe6CwSU+4JwqipTlAR+4d+PkMAoGABjfHChBpsV3I1IOXQHu/U0iVjzHp5+Y9ptDGzHO6uNEyIl/ETosgcZ4FkgBdZ5OJb6DfpITDhlO7u/sH/SFGpAIdIO0+IHYzG8Dk474cjhKH6VloFSTswSMjQIhx27mWgIed7E1dr7J7UzlcEtj/N0B8aqe8N8Krbu0m3GiCOSJs3MIuNreFHTrDZJVO0BlWMlSZMUVloFaLtIo0Hz40dC7gT2SpZKTnvqW8ft3s6SbMMDRNsUFCI9znAS8n03P1IG/pZcHiZCNEHa7KrgKJBzfrFEjFveFAcRzujRWEEtC9lIOuhIAKxUjq+AVSPRW99xzIJeX+2uiPA5ryEsUpjCdlSiTjA/FM8Og5VZ1HR2s/agGhRxDw1E+0/RE0j0g4yIutFHYZqpESzllT+64yF3E4IzXG122bnJ52sxhxYaZG3ctmElzggfXGqLCwYcJyB4eL15NWMaoldiWN55kTcsmoVRoEyrJSlgu0xpMshrxO98Ipm9/y1XUrkLUG1da71+8Grir5WxSxNtvCQcxmDYPCHJSGMxrIGnqZR3+bvCUiQKNLm9hx4dI9SBRHMcSqjD9MH5SR2Ypc9pu8MOhBQI/0K0H/60GDqWWyb5UsDzEpvf/wvyPhqbXhz3+S6TzjT+OdqAKHjJjLEOQwhSBgIsVYdL+YTKc2FCfzeHXXVgfuIgB+1kOhG3R6Fq9KULNQxOh5BOv8CrPNPWlZmDuKdHaugwkggGU2bziPATknRDQs01d4CB0BbPie4X1pfRaiVC1zUAQ4O9HtiPFbnnNe2IyJQJzNvrSd7vP6j++pcAYA9IxCaPz8S010fBakGdo16l3kkQEZZGwb4WSGSqTTi2kP+598bJUsgYa6LKjdbp5eikCwbIcjiuXsZTwKjHCksou1hS9ELGWfumlEH+PS/5cwnztLHRP8U3xD7/OA3UF/1mVKNcVWdTv1VH/59C8oQzYkHjzwHWEgNyVGFEbRSf3VcUzvGbJdRBlPcqM/mC5lNLD8ZPAIOwDBzzQfWUvZoyfl4KImownldI++yt7Wc2Zd72/iUpSYTUe5b7p7dFnwkIiPgctHdn8NlpvawelX4Nll+9hTV0nZ6orSi9GIwP2unI+4J89Qppe8d9v+MssuwtBXzdDO+Q+Lub8++IF6A+B8dZia2cHqFOn5mPijF6rdXVR5Y/AnDIrww37AlqF9HsjUG1NnIZPSMUOJdXzsXFlPIyMXQwEwYJKoZIhvcNAQkVMQYEBAEAAAAwXQYJKwYBBAGCNxEBMVAeTgBNAGkAYwByAG8AcwBvAGYAdAAgAFMAbwBmAHQAdwBhAHIAZQAgAEsAZQB5ACAAUwB0AG8AcgBhAGcAZQAgAFAAcgBvAHYAaQBkAGUAcjCCA/cGCSqGSIb3DQEHBqCCA+gwggPkAgEAMIID3QYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQMwDgQIh7oXtg6mOXECAgfQgIIDsIsVfWdp0Qc7t45kuo/euV1i6HHYNwfn1Nt7XfrplM8Qz9z5/wQNfc5YK/VZNC6TVXvCPbCNaWo4dknpF1esBTKLuJDQ6aboPnixWix8mZvZn2rmQqq7tfz3QLT7tsHOOZEsN79xhQI9FpPfR8UH5FhQMMM6QGmYZSiKh6kww/ice8kDDgQ3ambbcPwbyKMeHwYzIoTKuJT7tHEhPr/eKOARuxQlPCM2T8080RfrdXIhcP2qV6LnfQn3FOdMrSq9HwVwq1hIfRzVAqsKx9J7md+y3ZA3X7YuC3U5/b8FgwwJytK/f2b2qJzhFW1FoM1/d1Wy8lUeaqqLejhpSe3TJwUXZ193265KAluPhlUff7iHVQwBbOYgYvUvB1lKVNe5wbmrCdK/0rjTh0+pscIwQ899DsM9WEjgm1I1F5AYry2E7+uw0QZ62o+NDNET4mhV8zxinyL5rCZ4ii6DCExrhtcdbJplE4QrxnCm32AH7/FLS/30i7cFkbL13YRMR8Z7zNyfYGY0BPcvls6hlEqduIBbtb5bnBl4W6qsLYHCu26qSK1c082vGcgo5y7kssUnXZ0ACL4rOEgIVaz2oGYmb8hHlWhU52TkvO8fZ4jzgGAIswAVmyRqXirop2TTbmvOzUSMfekm+GpigavsJIhe7JuyhlbKcv71MBPTRHc2bdf9+mPxyOc3R56WucRhO2cBywPvcpjg/M+mYy424whbtf1vePieeuP4/XvJxuML841XGHvQfkCQ+zPwoH1HG21Tx5rMa1JsMhCx3gdgXHN5Q8IIiN9t5qYw6J6hh5ALogI6XNf+7T6LIqccEQr1YrctBBgSj8hk0Ek7FrSfM3ivW3pmsVVTeLxU5BZFg4mRV0AEnpHZsOfPzgG7Yiflch/wIriTAkXsM73RvbHYZMjnc3G7YKeLqZXIAaUCPnX0WQNs+3Yt3hpXkF7PvykNgl+2Sb40ZTMB6O0Z9qSOqUGIQedAidZfKt8m4Pgy7EwmZH800VU0wHlUZ7g02YS4/M+KMnmK9o5yUTjXs1eYjVuPoF7k7wD+xg2AsUmrKfPdf4IICh+lx4+hncxWAT27HkfozzH9IAeexGc5f2+L2m56I5BPSRuF8XVtYAlmqC5CMxcSO2gSgJt3J9PpDa5MJxE+PjNMOe2S42Kp65wrdvLKKSUqihwfTCj8IECclv+tD8C8xWYPKhy9iDesVaqrgPPZtogk4Uglo6FrOnOFTn/aljiJuv6YzMBdncphU07xSPgNMDswHzAHBgUrDgMCGgQUUEwsUfszrsZgkuFo2zGQnbMEqgAEFNKIKLXNxHU5y5Hp4JbXji5O+KyVAgIH0A==
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: repository
+  namespace: sentinet
+  labels:
+    app: repository
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: repository
+      namespace: sentinet
+      labels:
+        app: repository
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      initContainers:
+      - name: wait-for-sql-server
+        image: nevatech/sentinet.database.linux:latest
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo "Waiting for SQL Server to be ready..."
+            until /opt/mssql-tools18/bin/sqlcmd -S database-svc.sentinet.svc.cluster.local,1433 -U sa -P "mJ41C-36gQ[P" -C -Q "SELECT 1" -b -o /dev/null 2>&1; do
+              echo "SQL Server not ready yet, retrying in 5 seconds..."
+              sleep 5
+            done
+            echo "SQL Server is ready."
+      containers:
+      - name: repository
+        image: nevatech/sentinet.linux:latest
+        args: ["Nevatech.Sentinet.Repository.dll"]
+        env:
+        - name: SENTINET_CONFIG
+          value: "/config/repository.json"
+        - name: SENTINET_NORESTART
+          value: "true"
+        ports:
+        - containerPort: 443
+        - containerPort: 80
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 500m
+        volumeMounts:
+          - mountPath: /config
+            name: config-volume
+      volumes:
+      - name: config-volume
+        configMap:
+          name: repository-config
+  selector:
+    matchLabels:
+      app: repository
