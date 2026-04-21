@@ -1,10 +1,11 @@
 All Sentinet components can be hosted in Kubernetes. These scripts have beed tested to successfully run in the local Docker Desktop Kubernetes cluster, as well as in Azure Kubernetes Service.
 
-To run Sentinet in Docker Desktop:
+To run Sentinet in Docker Desktop Kubernetes cluster:
 
-1. Download and install Docker Desktop: https://www.docker.com/products/docker-desktop/
+1. Download and install Docker Desktop: https://www.docker.com/products/docker-desktop/.
 2. Enable Kubernetes in Docker Desktop ("Settings" -> "Kubernetes" -> "Enable Kubernetes [X]")
 3. Install the "Docker\config\host.docker.internal.crt" certificate into Windows Trusted Authorities store.
+4. Update the "repository.json" config-map in "4-repository.yaml" file, "node.json" config-map in "5-node.yaml" file, and "agent.json" config-map in "3-agent.yaml" file to include a valid license key (Nevatech.Sentinet:LicenseKey). The key can be obtained from Nevatech support team (mailto:support@nevatech.com) or by requesting a free trial on https://www.nevatech.com.
 5. Run "run.cmd" script. The script will create the following resources in Kubernetes:
 * *"sentinet"* namespace.
 * *"database"* deployment hosting a single pod running SQL Server database.

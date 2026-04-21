@@ -1,4 +1,4 @@
-Nevatech maintains a private Docker Hub repository (https://hub.docker.com/u/nevatech).
+Nevatech maintains a public Docker Hub repository (https://hub.docker.com/u/nevatech).
 
 The repository contains the following images:
 
@@ -54,13 +54,14 @@ To run Sentinet environment in *Linux containers* on Windows machine:
 
 1. Download and install Docker Desktop: https://www.docker.com/products/docker-desktop/
 2. Install the "config\host.docker.internal.crt" certificate into Windows Trusted Authorities store.
-3. Run "run.cmd" script. Docker will download and start 4 containers:
+3. Update the "config\repository.json", "config\node.json", and "config\agent.json" files to include a valid license key (Nevatech.Sentinet:LicenseKey). The key can be obtained from Nevatech support team (mailto:support@nevatech.com) or by requesting a free trial on https://www.nevatech.com.
+4. Run "run.cmd" script. Docker will download and start 4 containers:
 * *database* - runs SQL Server. You can connect to it with SQL Management Studio using "host.docker.internal,6123" address, "sa" username, and "mJ41C-36gQ[P" password.
-* *repository* - can be accessed at "https://host.docker.internal:7001/". Username: "sysadmin@test.org", password: "password". Swagger UI is located at "https://host.docker.internal:7001/swagger".
+* *repository* - can be accessed at "https://host.docker.internal:7001/". Username: "sysadmin@test.org", password: "password".
 * *agent* - running all tasks
 * *node* - has two base addresses registered: "http://host.docker.internal:5000" and "https://host.docker.internal:5001". Periodically heartbeats.
-4. To stop the environment hit "Ctrl-C". Containers are stopped, but their state is preserved. To restart, run "run.cmd" again.
-5. To remove all containers and start over, run "remove.cmd".
+5. To stop the environment hit "Ctrl-C". Containers are stopped, but their state is preserved. To restart, run "run.cmd" again.
+6. To remove all containers and start over, run "remove.cmd".
 
 To run Sentinet environment in *Windows containers* execute the same steps below with two differences:
 
