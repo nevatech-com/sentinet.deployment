@@ -57,7 +57,7 @@ To run Sentinet environment in *Linux containers* on Windows machine:
 3. Update the "config\repository.json", "config\node.json", and "config\agent.json" files to include a valid license key (Nevatech.Sentinet:LicenseKey). The key can be obtained from Nevatech support team (mailto:support@nevatech.com) or by requesting a free trial on https://www.nevatech.com.
 4. Run "run.cmd" script. Docker will download and start 4 containers:
 * *database* - runs SQL Server. You can connect to it with SQL Management Studio using "host.docker.internal,6123" address, "sa" username, and "mJ41C-36gQ[P" password.
-* *repository* - can be accessed at "https://host.docker.internal:7001/". Username: "sysadmin@test.org", password: "password".
+* *repository* - can be accessed at "https://host.docker.internal:7001/". Username: "admin@temp.org", password: "Password@1".
 * *agent* - running all tasks
 * *node* - has two base addresses registered: "http://host.docker.internal:5000" and "https://host.docker.internal:5001". Periodically heartbeats.
 5. To stop the environment hit "Ctrl-C". Containers are stopped, but their state is preserved. To restart, run "run.cmd" again.
