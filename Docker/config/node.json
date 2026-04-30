@@ -38,11 +38,11 @@
           "Path": "/config/host.docker.internal.pfx",
           "Password": "password"
         },
-        "Protocols": "Http1AndHttp2AndHttp3"
+        "Protocols": "Http1AndHttp2"
       },
       "Http": {
         "Url": "http://*:80",
-        "Protocols": "Http1AndHttp2AndHttp3"
+        "Protocols": "Http1"
       }
     },
     "Limits": {
@@ -103,7 +103,8 @@
         "AuthType": "Negotiate",
         "UseSsl": false,
         "Port": 389
-      }
+      },
+      "CheckCertificateRevocation": true
     },
     "Extensibility": {
       "Configurators": []
@@ -111,6 +112,10 @@
   },
 
   "Nevatech.Sentinet.Runtime": {
+    // Setting this flag to true will enable rewrite of Sentinet node's base Uri
+    // based on values provided in X-Forwarded-Host, X-Forwarded-Proto and
+    // X-Forwarded-Port HTTP request's headers.
+    "EnableUriRewrite": false,
     "Node": {
       "Key": "CD863F77-8F92-40F1-93AA-706B0A8EDA56",
       "Instance": null,
@@ -132,7 +137,12 @@
       "MaxUndeliveredRecords": 10000,
       "MaxUndeliveredActivities": 0,
       "MinAvailableMemory": 262144000,
-      "MaxBatchSize": 1048576
+      "MaxBatchSize": 1048576,
+      "RecordableContentTypes": [
+        "^text\/",
+        "^application\\/(json|xml|x-www-form-urlencoded|problem\\+json|soap\\+xml)"
+      ],
+      "ContentTypeNotRecordableMessage": "[Content type is not recordable...]"
     },
     "ProtectionCertificate": {
       "Path": "/config/host.docker.internal.pfx",
@@ -147,13 +157,23 @@
     "RepositoryServiceClient": {
       "Address": "https://host.docker.internal:7001/",
       "Timeout": "00:00:30",
-      "NodeSecret": "dz.GzZKP8UCTqnBrCo7aVgAQJFEQ8I0XeXFt7eWM_0UNWLZFm_fcpGqshnuLLdl-"
+      "NodeSecret": "dz.GzZKP8UCTqnBrCo7aVgAQJFEQ8I0XeXFt7eWM_0UNWLZFm_fcpGqshnuLLdl-",
+      "SecurityProtocols": "None",
+      "CertificateRevocationCheckMode": "NoCheck",
+      "AcceptAnyServerCertificate": false
     },
     "Health": {
       "TransportFailureRate": {
         "DetectionWindowSize": "00:01:00",
         "MinimalTotalCountThreshold": 10,
         "DefaultFailureRateLimit":  0.3
+      }
+    },
+    "Diagnostics": {
+      "IncludeErrorDetails": false,
+      "IncludeRequestUri": false,
+      "CustomErrors": {
+        // "500": "An internal server error has occurred."
       }
     }
   }

@@ -36,11 +36,11 @@
           "Path": "/config/host.docker.internal.pfx",
           "Password": "password"
         },
-        "Protocols": "Http1AndHttp2AndHttp3"
+        "Protocols": "Http1AndHttp2"
       },
       "Http": {
         "Url": "http://*:80",
-        "Protocols": "Http1AndHttp2AndHttp3"
+        "Protocols": "Http1"
       }
     },
     "Limits": {
@@ -122,6 +122,16 @@
       "ExposedHeaders": "Location,Preference-Applied,Retry-After",
       "AllowCredentials": true,
       "PreflightMaxAge": 600
+    },
+    "Diagnostics": {
+      "IncludeErrorDetails": false,
+      "IncludeRequestUri": false,
+      "CustomErrors": {
+        // "500": "An internal server error has occurred."
+      }
+    },
+    "Documentation": {
+      "EnableSwaggerUi": false
     }
   },
 
