@@ -157,7 +157,7 @@
     "RepositoryServiceClient": {
       "Address": "https://host.docker.internal:7001/",
       "Timeout": "00:00:30",
-      "NodeSecret": "dz.GzZKP8UCTqnBrCo7aVgAQJFEQ8I0XeXFt7eWM_0UNWLZFm_fcpGqshnuLLdl-",
+      "NodeSecret": "dz.GzZKP8UCTqnBrCo7aVgo_SMytau-NXrzZfJJbTs2RXmk_np3kHwof8zm_nYxFtS3NMrBZhsa07PUupDyRrQ",
       "SecurityProtocols": "None",
       "CertificateRevocationCheckMode": "NoCheck",
       "AcceptAnyServerCertificate": false
