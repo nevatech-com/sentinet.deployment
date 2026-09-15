@@ -16,7 +16,7 @@ docker run -it --rm
     --mount type=bind,source=combined\config,target=/config 
     --env SENTINET_CONFIG=/config/repository.json 
     --name repository
-    nevatech/sentinet.linux:latest Nevatech.Sentinext.Repository.dll
+    nevatech/sentinet.linux:latest Nevatech.Sentinet.Repository.dll
 
 // Windows
 docker run -it --rm
@@ -24,7 +24,7 @@ docker run -it --rm
     --mount type=bind,source=combined\config,target=C:\config 
     --env SENTINET_CONFIG=C:\config\repository.json 
     --name repository
-    nevatech/sentinet.windows:latest Nevatech.Sentinext.Repository.dll
+    nevatech/sentinet.windows:latest Nevatech.Sentinet.Repository.dll
 ```
 
 In addition to two Sentinet images we also provide a sample pre-configured Sentinet database images with SQL Server for Unix and SQL Server for Windows installations.
